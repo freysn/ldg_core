@@ -81,7 +81,32 @@ Note that in the following only the use of the optimizer is documented.
 
 Unless any termination criteria are specified, the optimizer runs until it is interrupted by CTRL-C.  
 By default, it prints a short update with the current evaluation score and for how long the assignment has been unchanged (among others). 
-It then completes the ongoing pass phase and then writes the assignment file "qtLeafAssigning.raw.bz" in the specified output directory (see below). 
+It then completes the ongoing pass phase and then writes the assignment file "qtLeafAssigning.raw.bz" in the specified output directory. 
+
+Please see the code snippet for an example how an assignment file asFile can be read and a resulting image can be generated (by means of rearranged RGB colors in an image img with image dimensions imgDim):
+
+```
+const auto qtLeafAssignment=
+	supertiles::place::read_qtLeafAssignment(asFile,
+						 imgDim);
+
+      const auto leaf2gridPos =
+	helper::invertMap(gridPos2QTLeaves(imgDim));
+
+
+      std::vector<unsigned char> o(helper::ii2n(imgDim)*nChannels, 0);
+      for(const auto leafPos : helper::range_n(helper::ii2n(imgDim)))
+	{
+	  
+	  const auto imgIdx = qtLeafAssignment[leafPos];
+	  const auto gridPos = leaf2gridPos[leafPos];
+	  for(const auto c : helper::range_n(nChannels))
+	    o[nChannels*gridPos+c] = img[nChannels*imgIdx+c];
+	}
+      
+      helper::cimgWrite("colRGB_fromPNG.png",
+		&o[0], imgDim, nChannels);
+```
 
 ### command line switches
 Useful command line switches for ldg_core (incomplete list, but should contain most important ones to get started): 
