@@ -107,13 +107,16 @@ helper::cimgWrite("colRGB_fromPNG.png", &o[0], imgDim, nChannels);
 ```
 
 ### command line switches
-Useful command line switches for ldg_core (incomplete list, but should contain most important ones to get started): 
+Useful command line switches for ldg_core (incomplete list, but should contain most important ones to get started); they all expect one argument:
 
-* --dataconf, -d _arg_ | custom config format describing the input dataset (see description below).
+* --dataconf, -d | custom config format describing the input dataset (see description below).
 * --outDir | directory where to store generated assignment files
 * --distFuncType | 1: Euclidean distance
 * --seed | seed for the pseudo RNG
 * --nNeighbors | 4 (for 4-neighborhood, default) or 8 (for 8-neighborhood)
+* --termIterations | specify how many optimization iterations the code should run (default: infinity)
+* —termSame” | interrupt after the assignment hasn't been changed for said number of iterations.
+* --termTime | interrupt after running for a certain number of seconds
 
 
 ### data config files
