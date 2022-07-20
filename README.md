@@ -90,22 +90,20 @@ const auto qtLeafAssignment=
 	supertiles::place::read_qtLeafAssignment(asFile,
 						 imgDim);
 
-      const auto leaf2gridPos =
+const auto leaf2gridPos =
 	helper::invertMap(gridPos2QTLeaves(imgDim));
 
 
-      std::vector<unsigned char> o(helper::ii2n(imgDim)*nChannels, 0);
-      for(const auto leafPos : helper::range_n(helper::ii2n(imgDim)))
+std::vector<unsigned char> o(helper::ii2n(imgDim)*nChannels, 0);
+for(const auto leafPos : helper::range_n(helper::ii2n(imgDim)))
 	{
-	  
 	  const auto imgIdx = qtLeafAssignment[leafPos];
 	  const auto gridPos = leaf2gridPos[leafPos];
 	  for(const auto c : helper::range_n(nChannels))
 	    o[nChannels*gridPos+c] = img[nChannels*imgIdx+c];
 	}
       
-      helper::cimgWrite("colRGB_fromPNG.png",
-		&o[0], imgDim, nChannels);
+helper::cimgWrite("colRGB_fromPNG.png", &o[0], imgDim, nChannels);
 ```
 
 ### command line switches

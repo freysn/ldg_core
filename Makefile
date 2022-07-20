@@ -1,11 +1,3 @@
-#
-# Copyright (c) Steffen Frey (University of Groningen, Netherlands). All rights reserved.
-# Licensed under the MIT license. See LICENSE file in the project root for details.
-#
-
-
-### include common.mk
-
 OSUPPER = $(shell uname -s 2>/dev/null | tr "[:lower:]" "[:upper:]")
 DARWIN = $(strip $(findstring DARWIN, $(OSUPPER)))
 LIB =

@@ -779,8 +779,6 @@ namespace supertiles
 	      }
 	    else if(po.repFNames.empty())
 	      {
-		// WARNING: THIIS IS JUST A CHEAT TO DISTINGUISH BETWEEN CASES FOR NOW
-
 		drawAdaptiveGrids<distFuncType>(po.outDir,
 						gridDim, qtLeafAssignment,
 						tileData,
