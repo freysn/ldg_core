@@ -10,10 +10,10 @@ S. Frey, “Optimizing Grid Layouts for Level-of-Detail Exploration of Large Dat
 
 It has been tested on macOS BigSur and Ubuntu 20.04. 
 
-//
-// Copyright (c) Steffen Frey (University of Groningen, Netherlands). All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for details.
-//
+<!-- // -->
+<!-- // Copyright (c) Steffen Frey (University of Groningen, Netherlands). All rights reserved. -->
+<!-- // Licensed under the MIT license. See LICENSE file in the project root for details. -->
+<!-- // -->
 
 <!-- Below, a quick sketch of the main concept is provided. Please refer to the paper for details. -->
 
@@ -46,9 +46,8 @@ It has been tested on macOS BigSur and Ubuntu 20.04.
 
 These libraries are prerequisites for building
 
-* Steffen's helper library (please check it out in the ldg directory)
-```git clone git@github.com:freysn/helper.git
-```
+* Steffen's helper library (please check it out in the ldg directory):
+  git clone git@github.com:freysn/helper.git
 
 * Cairo graphics library (could also be removed if needed)
 
