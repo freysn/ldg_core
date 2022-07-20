@@ -9,6 +9,12 @@ This is the implementation of grid layout method described in this paper EuroVis
 S. Frey, “Optimizing Grid Layouts for Level-of-Detail Exploration of Large Data Collections,” 2022, doi: 10.1111/cgf.14537.
 
 It has been tested on macOS BigSur and Ubuntu 20.04. 
+
+//
+// Copyright (c) Steffen Frey (University of Groningen, Netherlands). All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for details.
+//
+
 <!-- Below, a quick sketch of the main concept is provided. Please refer to the paper for details. -->
 
 <!-- * TODO -->
@@ -40,7 +46,7 @@ It has been tested on macOS BigSur and Ubuntu 20.04.
 
 These libraries are prerequisites for building
 
-* Steffen's helper library
+* Steffen's helper library (please check it out in the ldg directory)
 ```git clone git@github.com:freysn/helper.git
 ```
 
@@ -71,30 +77,31 @@ These libraries are prerequisites for building
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+/ldg_core/ can both be used to optimize the placement of member of data collections as well as rendering the resulting grid.
+Note that in the following only the use of the optimizer is documented.
+
+Unless any termination criteria are specified, the optimizer runs until it is interrupted by CTRL-C.  
+By default, it prints a short update with the current evaluation score and for how long the assignment has been unchanged (among others). 
+It then completes the ongoing pass phase and then writes the assignment file "qtLeafAssigning.raw.bz" in the specified output directory (see below). 
+
 ### command line switches
-Useful command line switches to _timeStepSelector_ : 
+Useful command line switches for ldg_core (incomplete list, but should contain most important ones to get started): 
 
-* --dataconf, -d _arg_ (default: testData/bottle.config) | custom config format describing the input dataset (see description below).
+* --dataconf, -d _arg_ | custom config format describing the input dataset (see description below).
+* --outDir | directory where to store generated assignment files
+* --distFuncType | 1: Euclidean distance
+* --seed | seed for the pseudo RNG
+* --nNeighbors | 4 (for 4-neighborhood, default) or 8 (for 8-neighborhood)
 
-* --maxSelect, -n _arg_ (default: 16) | maximum number of time steps to be selected (the creates selections for [1,2,3, .., maxSelect] time steps).
-
-* --batch,-b _arg_ (default: "selections") | output file in which the selections are stored (one line per number of time steps, indices separated by white space).
-
-* --distCache _args_ (default: "") | cache file for computed distances. If it exists, distances are loaded from this file, otherwise they are newly computed and stored in the specified file.
-
-* --selectionFile _arg_ (default: none) | expects the file name of a one-line text file with whitespace-separated indices of time steps. Outputs a file of the same name with postifx \_eval (e.g., "selection" results in "selection\_eval"). _Note: if provided, no selections are computed, but only the given selection is evaluated._
-
-* --fixFirstLastTimeStep (default: false) | Forces selection of the first and last time step.
 
 ### data config files
 
-_config_ files contain textual descriptions of the files to load. It assumes that each time step is stored in an individual file (see _testData/bottle.conf_ for an example).
+_config_ files contain textual descriptions of the files to load. It assumes that the data is stored in a raw file.
 
-* VOLUME\_FILE _arg_ | names of the volume files, wildcard with * supported
+* VOLUME\_FILE _arg_ | name of the raw file to load
 * VOLUME\_DIM _arg0_ _arg1_ _arg2_ | volume dimension in x, y, and z direction (integers)
-* VOLUME\_DATA_TYPE _arg_ | element type, possible values: _UCHAR_, _USHORT_, _FLOAT_, _DOUBLE_
-* VOLUME\_FORMAT | data format, possible values: _PNG_, _RAW_, _RAW_BZ2_ (raw data file compressed with bzip2)
-* VOLUME\_NUM_TIMESTEPS _arg_ | number of time steps to load
+* VOLUME\_DATA_TYPE _arg_ | element type, possible values: _UCHAR_, _USHORT_, _FLOAT_, _DOUBLE_, _UCHAR4_
+* VOLUME\_FORMAT | data format, possible values: _RAW_, _RAW_BZ2_ (raw data file compressed with bzip2)
 
 <!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
 
