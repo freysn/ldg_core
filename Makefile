@@ -56,8 +56,8 @@ MHOME=/home/freysn
 
 ifneq ($(DARWIN),)
 
-CXX=/opt/local/bin/clang++-mp-11 -lc++
-PYTHON = python3.9
+CXX=/opt/local/bin/clang++-mp-14 -lc++
+PYTHON = python3.10
 DARWIN_EXTRA_FLAGS += -undefined dynamic_lookup -mlinker-version=450
 INCLUDES += -I/opt/local/include
 
@@ -103,7 +103,7 @@ all:
 	$(CXX) $(CXX_FLAGS) ${DARWIN_EXTRA_FLAGS} $(INCLUDES) supertiles_place.cpp -o ${EXEC_NAME} $(LIB)
 
 pb:
-	$(CXX) $(CXX_FLAGS) -shared -fPIC ${DARWIN_EXTRA_FLAGS} `${PYTHON} -m pybind11 --includes` ${PY_DIR}supertiles_pybind11.cpp -o ${PY_DIR}ldg`${PYTHON}-config --extension-suffix` -I. ${INCLUDES} -I/opt/local/include -I$(MHOME)/dev/ext/pybind11/include $(LIB)
+	$(CXX) $(CXX_FLAGS) -shared -fPIC ${DARWIN_EXTRA_FLAGS} `${PYTHON} -m pybind11 --includes` ${PY_DIR}supertiles_pybind11.cpp -o ${PY_DIR}ldg`${PYTHON}-config --extension-suffix` -I. ${INCLUDES} -I/opt/local/include -I$(MHOME)/dev/ext/pybind11/include $(LIB) -I/opt/local/Library/Frameworks/Python.framework/Versions/3.10/include/python3.10
 
 pb_test:
 	$(CXX) $(CXX_FLAGS) ${DARWIN_EXTRA_FLAGS} ${PY_DIR}supertiles_pybind11.cpp -o ${PY_DIR}supertiles_pb_test -I. ${INCLUDES} -I/opt/local/include -I$(MHOME)/dev/ext/pybind11/include $(LIB) -DJUST_A_TEST
