@@ -1700,8 +1700,8 @@ namespace supertiles
 	      case static_cast<mark_t>(MarkMode::select):
 		{
 		  std::cout << "draw rect "<< pos << " " << dim << "\n";
-		  const V4<double> col(1., 1., 0., 1.);
-		  const double lw=dim.x/10.;
+		  const V4<double> col(1., 0., 1., 1.);
+		  const double lw=dim.x;
 		  
 		  cairo_set_source_rgba(cr,
 					col.x,
