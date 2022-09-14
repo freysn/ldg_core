@@ -718,7 +718,7 @@ namespace supertiles
 		    over(*it,tmp);
 		  }
 	      }
-	    else if(markMode==3)
+	    else if(markMode==3 && false)
 	      {
 		for(auto it=to; it != to+helper::ii2n(rep_tileDimOut); it++)
 		  {

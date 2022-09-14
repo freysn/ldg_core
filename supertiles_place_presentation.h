@@ -1534,7 +1534,9 @@ namespace supertiles
 #endif
 
 
-      auto shownNodesArea_ = [&](const auto& nv, bool includeInactive=false)
+      // includeInactive=2 : include everything
+      auto shownNodesArea_ = [&](const auto& nv, uint32_t
+				 includeInactive=false)
       {	
 	V2<double> imgPosMin(std::numeric_limits<double>::max(),
 			     std::numeric_limits<double>::max());
@@ -1543,7 +1545,8 @@ namespace supertiles
 			     std::numeric_limits<double>::lowest());
 
 	for(const auto & nodeId : helper::range_n(nv.size()))
-	  if(nv[nodeId]==1 || (includeInactive && nv[nodeId]==2))
+	  if(includeInactive==2
+	     || (nv[nodeId]==1 || (includeInactive && nv[nodeId]==2)))
 	    {
 	      V2<double> imgPos, imgDim;
 	      std::tie(imgPos,
@@ -1661,6 +1664,88 @@ namespace supertiles
 			    *col_it,
 			    true);
 	}
+      }
+
+      //
+      // add special overlays for agents
+      //
+      {
+	const auto & sn=shownNodes;
+
+	for(size_t nodeId=0; nodeId < sn.size(); nodeId++)
+	  {
+	    const auto mode=sn[nodeId];
+	    if(mode==0)
+	      continue;
+
+	    using mark_t=std::uint8_t;
+	    enum class MarkMode : mark_t { select = 2 , lookAt=3};
+	    
+
+	    V2<double> pos, dim;
+	    std::tie(pos,
+		     dim,
+		     std::ignore,
+		     std::ignore)
+	      = node2tileImg_(nodeId, false);
+
+	    if(imgOpts.swapXY)
+	      {
+		std::swap(pos.x, pos.y);
+		std::swap(dim.x, dim.y);
+	      }
+
+	    switch(mode)
+	      {
+	      case static_cast<mark_t>(MarkMode::select):
+		{
+		  std::cout << "draw rect "<< pos << " " << dim << "\n";
+		  const V4<double> col(1., 1., 0., 1.);
+		  const double lw=dim.x/10.;
+		  
+		  cairo_set_source_rgba(cr,
+					col.x,
+					col.y,
+					col.z,
+					col.w);
+		  
+		  cairo_set_line_width(cr, lw);
+		  cairo_rectangle(cr,
+				  pos.x-lw,
+				  pos.y-lw,
+				  dim.x+2*lw,
+				  dim.y+2*lw);
+		  cairo_stroke(cr);
+		}
+		break;
+	      case static_cast<mark_t>(MarkMode::lookAt):
+		{
+		  std::cout << "draw circle"<< pos << " " << dim << "\n";
+		  const V4<double> col(1., 0., 0., 1.);
+		  const double lw=dim.x/10.;
+		  
+		  cairo_set_source_rgba(cr,
+					col.x,
+					col.y,
+					col.z,
+					col.w);
+		  
+		  cairo_set_line_width(cr, lw);
+
+		  cairo_arc (cr,
+			     pos.x+dim.x/2,
+			     pos.y+dim.y/2,
+			     dim.x/4., 0, 2*M_PI);
+		  
+		  cairo_stroke(cr);
+		}
+		break;
+	      default:
+		break;
+	      }
+	    
+	  }
+	
       }
       
       if(fnamePNG != "")
