@@ -12,7 +12,11 @@ include(FetchContent)
 
 FetchContent_Declare(
   helper
-  GIT_REPOSITORY git@github.com:freysn/helper.git)
+  GIT_REPOSITORY git@github.com:freysn/helper.git
+  GIT_TAG master
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND ""
+)
 
 
 FetchContent_MakeAvailable(helper)
@@ -29,15 +33,24 @@ target_include_directories(ldg_core PUBLIC .)
 # target_link_libraries(another PUBLIC one)
 target_compile_features(ldg_core PUBLIC cxx_std_17)
 
+
 find_package(OpenMP)
 if(OpenMP_CXX_FOUND)
     target_link_libraries(ldg_core PUBLIC OpenMP::OpenMP_CXX)
-  endif()
+else()
+    target_compile_definitions(ldg_core PUBLIC NO_OMP=1)
+endif()
 
 
 find_package(PNG REQUIRED)
 include_directories(${PNG_INCLUDE_DIR})
 target_link_libraries(ldg_core PUBLIC ${PNG_LIBRARY})
+
+
+add_library(helper INTERFACE)
+target_include_directories(helper INTERFACE ${helper_SOURCE_DIR})
+
+target_link_libraries(ldg_core PUBLIC helper)
 
 
 find_package(BZip2 REQUIRED)

@@ -2,12 +2,12 @@
 #define __SUPERTILES_PO__
 
 #include <vector>
-#include "helper/volData/splitStr.h"
-#include "helper/helper_lexicalCast.h"
+#include "helper_volData/splitStr.h"
+#include "helper_lexicalCast.h"
 #include "supertiles_configTypes.h"
 #include <iostream>
 #include <cassert>
-#include "helper/helper_assert.h"
+#include "helper_assert.h"
 
   enum dataInputFormat_t
   {

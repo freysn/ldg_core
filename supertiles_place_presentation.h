@@ -4,15 +4,15 @@
 #include "supertiles_place_cost.h"
 #include "supertiles_QuadTree.h"
 #include <set>
-#include "helper/helper_CairoDraw.h"
-#include "helper/color/cm_plasma.h"
-#include "helper/color/cm_map.h"
-#include "helper/helper_string.h"
+#include "helper_CairoDraw.h"
+#include "helper_color/cm_plasma.h"
+#include "helper_color/cm_map.h"
+#include "helper_string.h"
 #include "supertiles_place_useCases.h"
 #include <map>
 #include "supertiles_place_DrawTile.h"
 #include "supertiles_place_plan.h"
-#include "helper/helper_color.h"
+#include "helper_color.h"
 #include "supertiles_place_DrawOpts.h"
 #include "supertiles_place_LevelIndicator.h"
 

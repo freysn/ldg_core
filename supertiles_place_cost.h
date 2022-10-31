@@ -2,7 +2,7 @@
 #define __SUPERTILES_PLACE_COST__
 
 #include <array>
-#include "helper/helper_util.h"
+#include "helper_util.h"
 #include "supertiles_configTypes.h"
 #include "supertiles_QuadTree.h"
 #include <bitset>

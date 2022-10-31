@@ -2,12 +2,12 @@
 #define __SUPERTILES_PLACE_DATA__
 
 #define NO_CUDA_TYPES
-#include "helper/volData/UserData.h"
+#include "helper_volData/UserData.h"
 
-#include "helper/helper_cmd.h"
-#include "helper/helper_readDataFromConfigs.h"
-#include "helper/helper_imath.h"
-#include "helper/helper_io.h"
+#include "helper_cmd.h"
+#include "helper_readDataFromConfigs.h"
+#include "helper_imath.h"
+#include "helper_io.h"
 
 namespace supertiles
 {

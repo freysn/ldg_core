@@ -1,9 +1,9 @@
 #ifndef __SUPERTILES_QUAD_TREE__
 #define __SUPERTILES_QUAD_TREE__
 
-#include "helper/helper_util.h"
-#include "helper/helper_assert.h"
-#include "helper/helper_imath.h"
+#include "helper_util.h"
+#include "helper_assert.h"
+#include "helper_imath.h"
 #include "supertiles_place_NodeLeafCounts.h"
 
 namespace supertiles

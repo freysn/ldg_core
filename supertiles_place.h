@@ -11,9 +11,9 @@
 #include <random>
 #include <array>
 #include "supertiles_configTypes.h"
-#include "helper/helper_asciiFile.h"
-#include "helper/helper_hungarian.h"
-#include "helper/helper_ChronoTimer.h"
+#include "helper_asciiFile.h"
+#include "helper_hungarian.h"
+#include "helper_ChronoTimer.h"
 
 #ifndef NO_OMP
 #include <omp.h>
@@ -31,22 +31,22 @@
 
 #include "supertiles_place_log.h"
 #include "supertiles_place_term.h"
-#include "helper/helper_readFile.h"
+#include "helper_readFile.h"
 
 #include "supertiles_PO.h"
 #include "supertiles_place_presentation.h"
 
-#include "helper/helper_bzip.h"
-#include "helper/helper_string.h"
+#include "helper_bzip.h"
+#include "helper_string.h"
 
-#include "helper/helper_random.h"
+#include "helper_random.h"
 
-#include "helper/color/cm_map.h"
-#include "helper/color/cm_gray.h"
-#include "helper/color/cm_plasma.h"
-#include "helper/color/cm_viridis.h"
+#include "helper_color/cm_map.h"
+#include "helper_color/cm_gray.h"
+#include "helper_color/cm_plasma.h"
+#include "helper_color/cm_viridis.h"
 
-#include "helper/helper_CairoDraw.h"
+#include "helper_CairoDraw.h"
 #include <tuple>
 
 #define CHECK_IMPROVEMENT 2

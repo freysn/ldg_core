@@ -1,8 +1,8 @@
 #ifndef __SUPERTILES_PLACE_TERM__
 #define __SUPERTILES_PLACE_TERM__
 
-#include "helper/helper_signal.h"
-#include "helper/helper_ChronoTimer.h"
+#include "helper_signal.h"
+#include "helper_ChronoTimer.h"
 
 namespace supertiles
 {

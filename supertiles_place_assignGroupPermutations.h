@@ -5,7 +5,7 @@
 #include "supertiles_place_init.h"
 #include <unordered_map>
 
-#include "helper/helper_hungarian.h"
+#include "helper_hungarian.h"
 
 #define ASSIGN_GROUP_HUNGARIAN
 //#define ASSIGN_GROUP_PERMUTATIONS

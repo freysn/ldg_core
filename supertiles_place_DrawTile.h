@@ -1,20 +1,20 @@
 #ifndef __SUPERTILES_PLACE_DRAW_TILE__
 #define __SUPERTILES_PLACE_DRAW_TILE__
 
-#include "helper/volData/vec.h"
-#include "helper/helper_CairoDraw.h"
-#include "helper/helper_imath.h"
-#include "helper/helper_idx.h"
+#include "helper_volData/vec.h"
+#include "helper_CairoDraw.h"
+#include "helper_imath.h"
+#include "helper_idx.h"
 #include "supertiles_configTypes.h"
 #include "supertiles_QuadTree.h"
-#include "helper/helper_random.h"
+#include "helper_random.h"
 #include "supertiles_place_cost.h"
-#include "helper/color/cm_plasma.h"
-#include "helper/color/cm_turbo.h"
-#include "helper/color/cm_map.h"
-#include "helper/helper_blur.h"
+#include "helper_color/cm_plasma.h"
+#include "helper_color/cm_turbo.h"
+#include "helper_color/cm_map.h"
+#include "helper_blur.h"
 
-#include "helper/helper_pixelArtScaling.h"
+#include "helper_pixelArtScaling.h"
 #include "supertiles_place_DrawOpts.h"
 
 #include "supertiles_place_useCases.h"

@@ -2,7 +2,7 @@
 #define __SUPERTILES_PLACE_UC_MCMC__
 
 
-#include "helper/color/cm_map.h"
+#include "helper_color/cm_map.h"
 
 #ifdef USE_STRAX_MCMC
 #include "strax/strax_mcmc.h"

@@ -1,7 +1,7 @@
 #ifndef __SUPERTILES_PLACE_DRAWOPTS__
 #define __SUPERTILES_PLACE_DRAWOPTS__
 
-#include "helper/helper_color.h"
+#include "helper_color.h"
 
 namespace supertiles
 {

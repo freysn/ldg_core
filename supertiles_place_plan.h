@@ -1,7 +1,7 @@
 #ifndef __SUPERTILES_PLACE_PLAN__
 #define __SUPERTILES_PLACE_PLAN__
 
-#include "helper/helper_random.h"
+#include "helper_random.h"
 
 namespace supertiles
 {
