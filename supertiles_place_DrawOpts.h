@@ -158,7 +158,8 @@ namespace supertiles
     std::vector<V4<double>> shownNodesv_ann_borderCol;
     //= V4<double>(0, 0, 0, 0);
     bool zoomActiveNodes=false;
-    V4<double> disparityIndicatorCol=V4<double>(.3, .3, .3, 1.);
+    //V4<double> disparityIndicatorCol=V4<double>(.3, .3, .3, 1.);
+    V4<double> disparityIndicatorCol=V4<double>(0., 0., 0., 0.);
     bool fullVoidRatioAdapt=true;
     double borderLineWidthScale=1.;
     double levelIndicatorScale=1.;
