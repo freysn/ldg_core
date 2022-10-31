@@ -37,10 +37,12 @@ It has been tested on macOS BigSur and Ubuntu 20.04.
 
 
 <!-- GETTING STARTED -->
-<!-- ## Getting Started -->
+## Getting Started
 
-<!-- <\!-- This is an example of how you may give instructions on setting up your project locally. -\-> -->
-<!-- To get a local copy up and running follow these simple example steps. -->
+<!-- This is an example of how you may give instructions on setting up your project locally. -->
+To get a local copy up and running follow these simple example steps.
+
+cmake .. -D CMAKE_CXX_COMPILER=clang-mp-14
 
 ## Prerequisites
 

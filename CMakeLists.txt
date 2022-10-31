@@ -1,10 +1,23 @@
 # https://cliutils.gitlab.io/modern-cmake/chapters/basics.html
 
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.14)
 
 project(ldg_core VERSION 0.1
   DESCRIPTION "Level-of-Detail Grids"
   LANGUAGES CXX)
+
+# ~/dev/tmp/modern-cmake/examples/fetch/CMakeLists.txt
+
+include(FetchContent)
+
+FetchContent_Declare(
+  helper
+  GIT_REPOSITORY git@github.com:freysn/helper.git)
+
+
+FetchContent_MakeAvailable(helper)
+
+
 
 # There are several things to unpack here. one is both the name of the executable file generated, and the name of the CMake target created (you'll hear a lot more about targets soon, I promise). The source file list comes next, and you can list as many as you'd like. CMake is smart, and will only compile source file extensions. The headers will be, for most intents and purposes, ignored; the only reason to list them is to get them to show up in IDEs. Targets show up as folders in many IDEs. More about the general build system and targets is available at buildsystem.
 
@@ -12,6 +25,7 @@ add_executable(ldg_core supertiles_place.cpp)
 
 # PUBLICdoesn't mean much for an executable; for a library it lets CMake know that any targets that link to this target must also need that include directory.
 target_include_directories(ldg_core PUBLIC .)
+
 # target_link_libraries(another PUBLIC one)
 target_compile_features(ldg_core PUBLIC cxx_std_17)
 
