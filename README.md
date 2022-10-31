@@ -42,7 +42,17 @@ It has been tested on macOS BigSur and Ubuntu 20.04.
 <!-- This is an example of how you may give instructions on setting up your project locally. -->
 To get a local copy up and running follow these simple example steps.
 
-cmake .. -D CMAKE_CXX_COMPILER=clang-mp-14
+
+
+Note that on macOS, the standard compiler can be used but offers no support for OpenMP.
+For OpenMP, a different compiler needs to be used. For example, on my mac, I use clang-14 (obtained via macports), and specify usage as follows:
+
+cmake .. -D CMAKE_CXX_COMPILER=clang-mp-14 -D CMAKE_EXE_LINKER_FLAGS=-lc++
+
+
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+
+<!-- cmake -DCMAKE_BUILD_TYPE=Release .. -->
 
 ## Prerequisites
 

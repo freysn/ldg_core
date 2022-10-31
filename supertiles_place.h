@@ -919,7 +919,10 @@ namespace supertiles
 		  return runMe_<D_ST, distFuncType_cosine_normalized, D, NodeLeafCounts_part<QT>>(po);
 		}
 	      else
-		assert(false);
+		{
+		  std::cerr << "invalid distFuncType provided.\n";
+		  assert(false);
+		}
 	      return 0.;
 	    };
 

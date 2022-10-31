@@ -86,7 +86,7 @@ namespace supertiles
 #else
 	    configFiles=std::vector<std::string>(1, basePath);
 #endif
-	  std::cout << "there are << " << configFiles.size() << " config files\n";
+	    //std::cout << "there are << " << configFiles.size() << " config files\n";
 	  std::sort(configFiles.begin(), configFiles.end());
 	  configFiles.resize(std::min(firstNFiles, configFiles.size()));
 
