@@ -6,7 +6,7 @@
 
 This is the implementation of grid layout method described in this EuroVis 2022 paper:
 
-S. Frey, “Optimizing Grid Layouts for Level-of-Detail Exploration of Large Data Collections,” 2022, doi: 10.1111/cgf.14537.
+S. Frey, “Optimizing Grid Layouts for Level-of-Detail Exploration of Large Data Collections,” 2022, <https://doi.org/10.1111/cgf.14537>.
 
 It has been tested on macOS BigSur and Ubuntu 22.04. 
 
@@ -25,7 +25,7 @@ These libraries are prerequisites for building
 <!-- GETTING STARTED -->
 ## Getting Started
 
-/ldg_core/ can simply be built via cmake.
+*ldg_core* can simply be built via cmake.
 These are exemplary steps to get you started on Linux/macOS.
 
 * Obtain the code from the repository https://github.com/freysn/ldg_core , e.g., via <code>git clone https://github.com/freysn/ldg_core.git</code>
