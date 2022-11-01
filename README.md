@@ -4,7 +4,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is the implementation of grid layout method described in this paper EuroVis 2022 paper:
+This is the implementation of grid layout method described in this EuroVis 2022 paper:
 
 S. Frey, “Optimizing Grid Layouts for Level-of-Detail Exploration of Large Data Collections,” 2022, doi: 10.1111/cgf.14537.
 
