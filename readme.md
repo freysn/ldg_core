@@ -48,6 +48,7 @@ These are exemplary steps to get you started on Linux/macOS.
 - run_examples_1k.sh exemplifies the usage for datasets with 1024 members
 - run_examples_full.sh demonstrates the usage for the full datasets (note that this requires more compute time and memory to run)
 
+The required data package can be downloaded from here: <https://www.dropbox.com/s/cp4rsq8cyjfl7qs/ldg_data.zip?dl=0>.
 
 Unless any termination criteria are specified, the optimizer runs until it is interrupted by CTRL-C.  
 By default, it prints a short update with the current evaluation score and for how long the assignment has been unchanged (among others). 
