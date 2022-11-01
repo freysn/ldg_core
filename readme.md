@@ -43,7 +43,7 @@ These are exemplary steps to get you started on Linux/macOS.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-/ldg_core/ can both be used to optimize the placement of member of data collections as well as rendering the resulting grid.
+*ldg_core* can both be used to optimize the placement of member of data collections as well as rendering the resulting grid.
 
 - run_examples_1k.sh exemplifies the usage for datasets with 1024 members
 - run_examples_full.sh demonstrates the usage for the full datasets (note that this requires more compute time and memory to run)
@@ -145,12 +145,14 @@ Distributed under the MIT License. See `license.md` for more information.
 
 
 
-CONTACT
+<!-- CONTACT -->
 ## Contact
 
 Steffen Frey - s.d.frey@rug.nl
 
 Project Link: [https://github.com/freysn/ldg_core](https://github.com/freysn/ldg_core)
+
+An interactive demo for exploring LDGs is provided here: <https://ldg-demo.github.io>.
 
 <!-- <p align="right">(<a href="#top">back to top</a>)</p> -->
 
