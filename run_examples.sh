@@ -99,6 +99,7 @@ $cmd_base --loadAssignments ${out}/qtLeafAssignment.raw.bz2 --termTime 0 --imgOu
 feat=$ldg_data/caltech_feat.config
 img=$ldg_data/caltech_img.config
 out=/tmp/ldg_core_test/caltech
+mkdir -p $out
 
 cmd_base="build/ldg_core -d $feat --outDir $out --distFuncType 2 --repAggregationType 2  --nTilesAssign 10240"
 
