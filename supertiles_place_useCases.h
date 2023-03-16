@@ -3,6 +3,7 @@
 
 
 #include "helper_color/cm_map.h"
+#include "helper_color/cm_bivariate.h"
 
 #ifdef USE_STRAX_MCMC
 #include "strax/strax_mcmc.h"
@@ -77,10 +78,12 @@ namespace supertiles
 	a=V3<double>(-1., -1., -1.),
 	b=V3<double>(-1., -1., -1.),
 	c=V3<double>(-1., -1., -1.);
+
+      const bool do_bivariateChannel=(colMapMode>=10);
       
       switch(colMapMode)
 	{
-	case 0:
+	case 0:	
 	  //brown
 	  a=V3<double>
 	    //(.31, .12, .14)
@@ -103,11 +106,26 @@ namespace supertiles
 	    (.62, .79, 1)
 	    ;
 	  break;
+	case 10:
+	  // gray
+	  a=V3<double>
+	    //(.31, .12, .14)
+	    //(.69, .5, .34)
+	    //(.64, .5, .5)
+	    (.4, .4, .4)
+	    ;
+	  b=V3<double>
+	    //(.71, .0, .62)
+	    (1., 1., 1.)
+	    ;
+	  break;
 	case 1:
+	case 11:
 	  a=c=V3<double>(1., 1., 1.);
 	  b=V3<double>(.61, .0, .42);
 	  break;
 	case 2:
+	case 12:
 	  a=V3<double>(.54, .4, .4);
 	  b=V3<double>(.61, .0, .42);
 	  c=V3<double>(.62, .79, 1);
@@ -120,31 +138,58 @@ namespace supertiles
 	  break;
 	};
 
-      
-      const size_t h=cm_mcmc.size()/2;
-      for(const auto & i : helper::range_n(cm_mcmc.size()))
-	{
-	  auto & o = cm_mcmc[i];
-	  if(a.x>=0.)
-	    {
-	      if(i<h)
-		o =
-		  (i*b + (h-i-1)*a)
-		  / static_cast<double>(h-1);
-	      else
-		o =
-		  ((i-h)*c + (cm_mcmc.size()-i-1)*b)
-		  / static_cast<double>(h-1);
-	    }
-	  else
-	    o=V3<double>(i,i,i)/(cm_mcmc.size()-1);
-	}
+
+      auto _createColMap = [&cm_mcmc](const auto a, const auto b, const auto c)
+      {
+	const size_t h=cm_mcmc.size()/2;
+	for(const auto & i : helper::range_n(cm_mcmc.size()))
+	  {
+	    auto & o = cm_mcmc[i];
+	    if(a.x>=0.)
+	      {
+		if(i<h)
+		  o =
+		    (i*b + (h-i-1)*a)
+		    / static_cast<double>(h-1);
+		else
+		  o =
+		    ((i-h)*c + (cm_mcmc.size()-i-1)*b)
+		    / static_cast<double>(h-1);
+	      }
+	    else
+	      o=V3<double>(i,i,i)/(cm_mcmc.size()-1);
+	  }
+      };
+
+      _createColMap(a,b,c);
 
       std::vector<V4<double>> rep;
       rep.reserve(nElems);
 
+      V2<uint32_t> dim;
+      dim.x=std::sqrt(nElems)+.5;
+      dim.y=dim.x;
+
+      std::cout << "mcmc2col_f nElems " <<  nElems << " dim.x " << dim.x << " dim.y " << dim.y << std::endl;
+
+      const auto biColMap = cm_bi_josh<V3<double>>(dim.x);
+      
+      // the assumption is that mcmc images should always be square
+      assert(dim.x*dim.y==nElems);
       for(const auto i : helper::range_n(nElems))
 	{
+
+	  if(do_bivariateChannel)
+	    {
+	      // V2<size_t> pos(i%dim.x, i/dim.x);
+	      // c=biColMap[];
+	      // c=cm_bi_map_norm(
+	      // 		       coords, 
+	      // 		       biColMap,
+	      // 		       V2<size_t>(dim.x, dim.y));
+	      assert(i<biColMap.size());
+	      _createColMap(a,b,biColMap[biColMap.size()-1-i]);
+	    }
 	  const auto e = feat[i];
 	  hassertm(e>=-0.0001 && e<=1.0001, e);
 	  const auto col=cm_map_norm(e, cm_mcmc);
