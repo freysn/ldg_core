@@ -37,7 +37,7 @@ namespace supertiles
 		  parse(e);
 		}
 	    }
-	  else if(keyValue[0]=="level")
+	  else if(keyValue[0]=="level" || keyValue[0]=="height")
 	    levels.push_back(std::stoi(keyValue[1]));	  
 	  else if(keyValue[0]=="disparity")
 	    disparities.push_back(std::stod(keyValue[1]));

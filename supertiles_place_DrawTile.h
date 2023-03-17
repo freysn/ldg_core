@@ -708,7 +708,7 @@ namespace supertiles
 		for(auto it=to; it != to+helper::ii2n(rep_tileDimOut); it++)
 		  it->w*=opts.shownNodes_inactiveOpMod;
 	      }
-	    else if(markMode==2/*|| opts.shownNodes[nodeId]==3*/)
+	    else if(markMode==2/*|| opts.shownNodes[nodeId]==3*/ && false)
 	      {
 		for(auto it=to; it != to+helper::ii2n(rep_tileDimOut); it++)
 		  {

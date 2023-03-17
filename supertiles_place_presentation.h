@@ -1092,7 +1092,7 @@ namespace supertiles
 		  //const std::string fname(fnamePNG.substr(0, fnamePNG.size()-4)+"_"+std::to_string(idx)+".png");
 
 		  const std::string fname
-		    (imgOpts.individualTileImgs+"_"+std::to_string(idx)+".png");
+		    (imgOpts.individualTileImgs+"_"+helper::leadingZeros(idx, 6)+".png");
 		  //std::cout << "write individual tile image to " << fname << std::endl;
 		  helper::cimgWriteNormRGBA(fname,
 					    bufRGBA, tileImg.tileDim);
@@ -1423,7 +1423,12 @@ namespace supertiles
 		  CairoDraw_t cd(helper::cairoBackend_rec);
 		  draw(cd.get());
 
-		  cd.writePDF(fnamePDF.substr(0, fnamePDF.size()-4)+"_"+std::to_string(nodeId)+".pdf");
+		  //cd.writePDF(fnamePDF.substr(0, fnamePDF.size()-4)+"_"+std::to_string(nodeId)+".pdf");
+
+		  const std::string fname=fnamePDF.substr(0, fnamePDF.size()-4)+"_"+helper::leadingZeros(nodeId, 6)+".pdf";
+
+		  std::cout << "write individual tile image " << fname << std::endl;
+		  cd.writePDF(fname);
 		}
 
 	      //
@@ -1701,7 +1706,7 @@ namespace supertiles
 		{
 		  std::cout << "draw rect "<< pos << " " << dim << "\n";
 		  const V4<double> col(1., 0., 1., 1.);
-		  const double lw=dim.x;
+		  const double lw=dim.x/10.;
 		  
 		  cairo_set_source_rgba(cr,
 					col.x,
@@ -1711,10 +1716,10 @@ namespace supertiles
 		  
 		  cairo_set_line_width(cr, lw);
 		  cairo_rectangle(cr,
-				  pos.x-lw,
-				  pos.y-lw,
-				  dim.x+2*lw,
-				  dim.y+2*lw);
+				  pos.x-.5*lw,
+				  pos.y-.5*lw,
+				  dim.x+lw,
+				  dim.y+lw);
 		  cairo_stroke(cr);
 		}
 		break;
