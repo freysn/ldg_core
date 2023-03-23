@@ -983,9 +983,10 @@ namespace supertiles
 	V2<double> borderDelta;
 	double lineWidth;
 
-	void clear()
+	void free()
 	{
-	  buf.clear();	  
+	  // trick to actually free up memory from vector
+	  std::vector<cairo4_t>().swap(buf);
 	}
 	
       };
@@ -1102,7 +1103,7 @@ namespace supertiles
 		  helper::cimgWriteNormRGBA(fname,
 					    bufRGBA, tileImg.tileDim);
 
-		  tileImg.clear();
+		  tileImg.free();
 		  std::cout << "write individual tile image to " << fname << ", skipping rest of drawing ..." << std::endl;
 		  continue;
 		}
