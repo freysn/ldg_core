@@ -131,6 +131,26 @@ namespace supertiles
 	  c=V3<double>(.62, .79, 1);
 	  break;
 	case 3:
+	  a=V3<double>
+	    //(.31, .12, .14)
+	    //(.69, .5, .34)
+	    //(.64, .5, .5)
+	    (.54, .4, .4)
+	    ;
+
+
+	  b=V3<double>
+	    //(.71, .0, .62)
+	    //(0.58 , 0.595, 0.7)
+	    (0., 0., 0.)
+	    ;
+
+	  // blue
+	  c=V3<double>
+	    //(.45, .67, .98)
+	    //(.72, .89, 1)
+	    (.62, .79, 1)
+	    ;
 	  break;
 	default:
 	  std::cerr<<"UNSUPPORTED MCMC COL MAP MODE " << colMapMode << std::endl;
