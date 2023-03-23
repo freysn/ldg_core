@@ -982,6 +982,12 @@ namespace supertiles
 	double tileScale;
 	V2<double> borderDelta;
 	double lineWidth;
+
+	void clear()
+	{
+	  buf.clear();	  
+	}
+	
       };
 
 #ifdef __NO_OMP
@@ -1093,9 +1099,11 @@ namespace supertiles
 
 		  const std::string fname
 		    (imgOpts.individualTileImgs+"_"+helper::leadingZeros(idx, 6)+".png");
-		  //std::cout << "write individual tile image to " << fname << std::endl;
 		  helper::cimgWriteNormRGBA(fname,
 					    bufRGBA, tileImg.tileDim);
+
+		  std::cout << "write individual tile image to " << fname << ", skipping rest of drawing ..." << std::endl;
+		  continue;
 		}
 
 	      //using R = V4<double>;
@@ -1227,6 +1235,8 @@ namespace supertiles
 		}
 	    }
 
+	  if(imgOpts.individualTileImgs =="")
+	    {
 	  for(size_t idx=batchIdx; idx<maxIdx; idx++)
 	    {
 	      const auto tileImgIdx=idx-batchIdx;
@@ -1453,9 +1463,11 @@ namespace supertiles
 		      it->second.set(siblingId);
 		    }
 		}
-	    }
+	    }	    
+	}
 	}
 
+      
 
 #if 0
       //
@@ -1539,6 +1551,8 @@ namespace supertiles
 #endif
 
 
+      if(imgOpts.individualTileImgs =="")
+	{
       // includeInactive=2 : include everything
       auto shownNodesArea_ = [&](const auto& nv, uint32_t
 				 includeInactive=false)
@@ -1761,7 +1775,7 @@ namespace supertiles
 	cd.writePDF(fnamePDF, imgOpts.background,
 		    border, pos, dim);
 
-
+	}
 
       //       import cairo
 
