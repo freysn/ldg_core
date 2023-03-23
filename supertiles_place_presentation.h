@@ -1102,6 +1102,7 @@ namespace supertiles
 		  helper::cimgWriteNormRGBA(fname,
 					    bufRGBA, tileImg.tileDim);
 
+		  tileImg.clear();
 		  std::cout << "write individual tile image to " << fname << ", skipping rest of drawing ..." << std::endl;
 		  continue;
 		}
