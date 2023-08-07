@@ -37,6 +37,7 @@ namespace supertiles
     private:
       using QT=supertiles_QuadTree<nodeId_t>;
 
+      std::vector<uint8_t> _labels;
 
     public:
 
@@ -62,6 +63,11 @@ namespace supertiles
       disparities(disparities_in),
       opts(opts_in)
     {
+      if(opts.mcmc_cm == 14831)
+	{	  
+	  const bool success=helper::bzip_decompress(_labels, opts.mcmc_labelsFName);
+	  assert(success);
+	}
     }
 
       auto tileOffsetsDims() const
@@ -618,10 +624,130 @@ namespace supertiles
 
 		  if(mcmc)
 		    {
-		      const auto rslt = mcmc2col(&buf[0], nElemsRepTileOut, opts.mcmc_cm);
+		      if(opts.mcmc_cm != 14831)
+			{
+			  const auto rslt = mcmc2col(&buf[0], nElemsRepTileOut, opts.mcmc_cm);
+			  
+			  CopyOp()(&to[0], &rslt[0],
+				   nElemsRepTileOut);
+			}
+		      else
+			{
+			  //
+			  // SPECIAL MODE FOR COLORING LABELLED DATA
+			  //
 
-		      CopyOp()(&to[0], &rslt[0],
-			   nElemsRepTileOut);
+			  // from gen_glyph.py
+			  const std::vector<V3<double>> labelColMap={{0.9019607843137255,0.09803921568627451,0.29411764705882354}, {0.23529411764705882,0.7058823529411765,0.29411764705882354}, {1.0,0.8823529411764706,0.09803921568627451}, {0.2627450980392157,0.38823529411764707,0.8470588235294118}, {0.9607843137254902,0.5098039215686274,0.19215686274509805}, {0.5686274509803921,0.11764705882352941,0.7058823529411765}, {0.25882352941176473,0.8313725490196079,0.9568627450980393}, {0.9411764705882353,0.19607843137254902,0.9019607843137255}, {0.7490196078431373,0.9372549019607843,0.27058823529411763}, {0.9803921568627451,0.7450980392156863,0.8313725490196079}, {0.27450980392156865,0.6,0.5647058823529412}, {0.8627450980392157,0.7450980392156863,1.0}, {0.6039215686274509,0.38823529411764707,0.1411764705882353}, {1.0,0.9803921568627451,0.7843137254901961}, {0.5019607843137255,0.0,0.0}, {0.6666666666666666,1.0,0.7647058823529411}, {0.5019607843137255,0.5019607843137255,0.0}, {1.0,0.8470588235294118,0.6941176470588235}, {0.0,0.0,0.4588235294117647}, {0.6627450980392157,0.6627450980392157,0.6627450980392157}};;
+			  
+			  assert(!_labels.empty());
+			  std::map<uint8_t, size_t> labelCounts;
+			  			  
+			  
+			  for(const auto & li : leaves)
+			    {
+			      if(isLeafVoid(li))
+				continue;
+
+			      const auto l=qtLeafAssignment[li];
+			      
+			      hassertm2(l<_labels.size(), l, _labels.size());
+			      const auto o=_labels[l];
+			      
+			      auto it=labelCounts.find(o);
+			      if(it != labelCounts.end())
+				it->second++;
+			      else
+				labelCounts.emplace(o,1);
+			    }
+
+			  assert(!labelCounts.empty());
+			  
+			  size_t totalCnt=0;
+			  {
+			    size_t cnt=0;			    
+			    for(auto & e : labelCounts)
+			      {
+				e.second+=cnt;
+				cnt=e.second;
+			      }
+			    totalCnt=cnt;
+			  }
+			  			  
+			  assert(totalCnt>0);
+			  
+			  V2<uint32_t> dim;
+			  dim.x=std::sqrt(nElemsRepTileOut)+.5;
+			  dim.y=dim.x;
+
+			  assert(dim.x*dim.y==nElemsRepTileOut);
+
+			  std::vector<V4<double>> rslt(dim.x*dim.y);
+
+
+			  
+			  auto it=labelCounts.begin();			  
+
+			  const auto nLabeledMembersPerRow=static_cast<double>(totalCnt)/static_cast<double>(dim.y);
+			  
+			  for(const auto & y : helper::range_n(dim.y))
+			    {
+			      
+			      while(it != labelCounts.end() && it->second < y*nLabeledMembersPerRow)
+				it++;				
+
+			      assert(it != labelCounts.end());
+			      
+			      const auto labelId=it->first;
+			      
+			      const V3<double> labelCol=labelColMap[labelId];
+			      const V3<double> baseCol=labelColMap.back();
+
+			      
+			      
+			      for(const auto & x : helper::range_n(dim.x))
+				{
+				  const size_t idx=y*dim.x+x;
+
+				  struct GetCol
+				  {
+
+				    GetCol(V3<double> labelColIn, V3<double> baseColIn)
+				      :
+				      labelCol(labelColIn),
+				      baseCol(baseColIn)
+				    {};
+				    
+				    auto operator()(double b)
+				    {
+				      return b*labelCol + (1-b)*baseCol;
+				    };
+
+				    auto operator()(V4<uint8_t> b)
+				    {
+				      return (b.x*labelCol + (255-b.x)*baseCol)/255.;
+				    }
+
+				    auto operator()(V3<float> b)
+				    {
+				      return this->operator()(b.x);
+				    }
+
+				    const V3<double> labelCol;
+				    const V3<double> baseCol;				    
+				  };
+				  
+				  const V3<double> col= GetCol(labelCol, baseCol)(buf[idx]);
+				    
+				  rslt[idx]=V4<double>(col.x, col.y, col.z, 1.);
+				}
+			    }
+			  
+			  
+			  CopyOp()(&to[0], &rslt[0],
+				   nElemsRepTileOut);
+			  
+			}
 		    }
 		  else if(colRGB)
 		    {

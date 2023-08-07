@@ -124,6 +124,8 @@ namespace supertiles
 	    chartLineWidthScale=std::stod(keyValue[1]);
 	  else if(keyValue[0]=="shownNodes_inactiveOpMod")
 	    shownNodes_inactiveOpMod=std::stod(keyValue[1]);
+	  else if(keyValue[0]=="mcmc_labelsFName")
+	    mcmc_labelsFName=keyValue[1];
 	  else if(keyValue[0]=="shownNodes_ghostArea")
 	    {
 	      const auto valuePair=helper::split(keyValue[1],'|');
@@ -183,6 +185,8 @@ namespace supertiles
     bool annotateTiles=false;
 
     bool do_uniformBorder=false;
+
+    std::string mcmc_labelsFName;
   };
 }
 
